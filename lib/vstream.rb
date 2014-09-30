@@ -1,3 +1,6 @@
+require 'bunny'
+
+
 require "vstream/version"
 require "vstream/object"
 require "vstream/stream"

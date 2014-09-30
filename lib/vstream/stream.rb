@@ -6,4 +6,8 @@ module Vstream
     def poll     ;end
     def remove   ;end
   end
+
+  class StreamRabbitMQ
+
+  end
 end
