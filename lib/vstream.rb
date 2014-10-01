@@ -1,6 +1,6 @@
 require 'bunny'
 
-
+require "vstream/configuration"
 require "vstream/version"
 require "vstream/object"
 require "vstream/stream"
