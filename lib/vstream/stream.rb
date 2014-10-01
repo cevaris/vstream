@@ -15,18 +15,21 @@ module Vstream
       @client.start
 
       @channel  = @client.create_channel
-      @queue    = @channel.queue("", :exclusive => true)
+      @queue    = @channel.queue(@route, :exclusive => true)
       @exchange = @channel.default_exchange
     end
 
+    # Queue interface
     def element  ;end
     def offer(e) ;end
     def peek     ;end
     def poll     ;end
     def remove   ;end
-    # Clears all elements from the queue
+    
+    # Collection interface
     def clear    ;end
     def size     ;end
+    def empty?   ;end
 
     # Closes client connection
     def close    ;end
@@ -36,11 +39,22 @@ module Vstream
 
     def element  ;end
     def offer(e)
-      @exchange.publish(e.to_s, :routing_key => @queue.name)
+      @exchange.publish(e.to_json, :routing_key => @queue.name)
     end
-    def peek     ;end
+    def peek
+      _, _, content = @queue.pop(:manual_ack => true)
+      begin
+        JSON.parse(content)  
+      rescue JSON::ParserError => e
+        content        
+      end
+    end
     def poll     ;end
     def remove   ;end
+
+    def empty?
+      self.size == 0
+    end
     def size    
       @queue.message_count 
     end

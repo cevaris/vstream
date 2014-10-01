@@ -1,4 +1,6 @@
 require 'bunny'
+require 'json'
+# require 'json/ext'
 
 require "vstream/configuration"
 require "vstream/version"
