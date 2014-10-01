@@ -21,7 +21,6 @@ module Vstream
     end
 
     def self.from_path path
-      from_string YAML.load_file(path)
     end
 
   end
