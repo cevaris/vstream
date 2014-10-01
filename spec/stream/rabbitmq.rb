@@ -4,11 +4,10 @@ describe 'stream' do
   context 'rabbitmq' do
 
     let(:args) { { host: HOST } }
+    let(:conn) { ConnectionFactory.connect RabbitMQ, args }
 
     it 'should connect' do
-      conn = Vstream::Stream.new, args
-      conn.should_not be nil
-      conn.client.host.should eq(HOST)
+      vs = StreamFactory.connect RabbitMQ, {client: conn}
     end
 
 

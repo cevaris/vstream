@@ -9,3 +9,6 @@ require "vstream/connect"
 module Vstream
   # Your code goes here...
 end
+
+
+Stream = Vstream::Stream

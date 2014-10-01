@@ -1,10 +1,23 @@
+class StreamType; end
+class RabbitMQ < StreamType; end
+
+class StreamFactory  
+  def self.get stream, args
+    case stream
+    when RabbitMQ.class
+      return Vstream::StreamRabbitMQ.new args
+    else
+      raise "#{stream} failed to match"
+    end
+  end
+end
+
 module Vstream
   class Stream < Object
     attr_reader :client
 
     def initialize(args)
       super args
-      @client = ConnectionRabbitMQ.new args
     end
 
     def element  ;end
@@ -15,6 +28,5 @@ module Vstream
   end
 
   class StreamRabbitMQ
-
   end
 end

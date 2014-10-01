@@ -10,17 +10,17 @@ module Vstream
     def initialize args
       super args
 
-      self.parse_config
+      from_path @path if @path
     end
 
 
     private 
 
-    def from_document doc
+    def self.from_document doc
       puts doc
     end
 
-    def from_path path
+    def self.from_path path
       from_string YAML.load_file(path)
     end
 
