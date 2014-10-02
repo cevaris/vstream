@@ -37,17 +37,21 @@ module Vstream
 
   class Stream < Vstream
 
-    def element  ;end
     def offer(e)
       @exchange.publish(e.to_json, :routing_key => @queue.name)
     end
     def peek
-      _, _, content = @queue.pop(:manual_ack => true)
+      # _, _, content = @queue.pop(:manual_ack => true)
+      _, _, content = @channel.basic_get(@queue.name, manual_ack: false)
       begin
         JSON.parse(content)  
       rescue JSON::ParserError => e
         content        
       end
+    end
+    def element
+      raise "Queue is empty" if empty?
+      self.peek
     end
     def poll     ;end
     def remove   ;end

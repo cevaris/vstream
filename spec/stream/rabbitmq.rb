@@ -40,8 +40,14 @@ describe 'stream' do
 
     it 'should peek' do
       stream.offer( payload )
+      stream.peek
       stream.size.should eq 1
     end
+
+    # it 'should peek' do
+    #   stream.offer( payload )
+    #   stream.size.should eq 1
+    # end
 
 
   end
